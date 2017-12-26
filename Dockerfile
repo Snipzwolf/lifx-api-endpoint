@@ -11,12 +11,6 @@ RUN apt-get -qq update && \
 
 WORKDIR /app
 RUN npm init -y && npm install node-lifx
-ADD src/server.js ./
-ADD src/flame_* ./
+ADD src/* ./
 
-ENV BULB_IPS="127.0.0.1,127.0.0.2"
-
-VOLUME ["/var/log"]
-
-EXPOSE 9000
 CMD /usr/local/bin/node server.js
