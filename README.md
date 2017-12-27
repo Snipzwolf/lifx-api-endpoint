@@ -1,7 +1,7 @@
 # lifx-api-endpoint
 [node server](https://nodejs.org/api/net.html#net_class_net_server) running in docker to execute commands on local lan connected [lifx bulbs](https://www.lifx.com/products/lifx-plus) used with [ha-bridge](https://github.com/aptalca/docker-ha-bridge) for alexa integration to avoid cloud bullshit
 
-lifx api @ [npmjs](https://www.npmjs.com/package/node-lifx) | [github](https://github.com/MariusRumpf/node-lifx)
+lifx api @ [npmjs](https://www.npmjs.com/package/node-lifx) &#124; [github](https://github.com/MariusRumpf/node-lifx)  
 demo usage script @ /app/send_cmd inside container  
 
 ## Environment Variables
