@@ -29,7 +29,7 @@ demo usage script @ /app/send_cmd inside container
 docker run -d --net=host --name lifx-api-endpoint \
   --log-driver json-file 0-log-opt max-size=10m \
   -e LISTEN_PORT='9010' \
-  -e BROADCAST_NETWORK='192.168.55.0' \
+  -e BROADCAST_NETWORK='192.168.55.9' \
   -e BULB_IPS='192.168.55.10,192.168.55.11' \
     snipzwolf/lifx-api-endpoint;
 
