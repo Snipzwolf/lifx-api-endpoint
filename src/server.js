@@ -9,9 +9,12 @@ const lifxClient = new LifxClientKlass();
 
 var lifxClientSettings = {
   startDiscovery: true,
-  debug: true,
   lights: process.env.BULB_IPS.split(',')
 };
+
+if(typeof process.env.LIFX_DEBUG !== 'undefined'){
+  lifxClientSettings['debug'] = (process.env.LIFX_DEBUG.trim().toLowerCase() == 'true');
+}
 
 if(typeof process.env.BROADCAST_NETWORK !== 'undefined'){
   lifxClientSettings['address'] = process.env.BROADCAST_NETWORK;
@@ -65,6 +68,8 @@ const onConnData = function(data, remoteAddress, conn) {
 };
 
 server.on('connection', handleConnection);
-server.listen(process.env.LISTEN_PORT, function() {
-  console.log('server listening to %j', server.address());
-});
+server.listen({
+  host: process.env.LISTEN_HOST,
+  port: process.env.LISTEN_PORT,
+  callback: () => console.log('server listening to %j', server.address())
+})

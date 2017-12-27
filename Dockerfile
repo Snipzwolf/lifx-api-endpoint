@@ -9,6 +9,9 @@ RUN apt-get -qq update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+ENV LISTEN_HOST="127.0.0.1" \
+    LIFX_DEBUG="false"
+
 WORKDIR /app
 RUN npm init -y && npm install node-lifx
 ADD src/* ./

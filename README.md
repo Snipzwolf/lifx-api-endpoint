@@ -15,15 +15,19 @@ demo usage script @ /app/send_cmd inside container
 
 ### Optional
 
+* LISTEN_HOST
+  * the host/ip to listen for connections on
 * BROADCAST_NETWORK
   * Network address the lifx api sends out udp broadcasts on
+* LIFX_DEBUG
+  * enable debug mode on the lifx api library
 
 ## Example usage
 ```
 # Run the container
 
 docker run -d --net=host --name lifx-api-endpoint \
-  -–log-driver json-file --log-opt max-size=10m \
+  --log-driver json-file 0-log-opt max-size=10m \
   -e LISTEN_PORT='9010' \
   -e BROADCAST_NETWORK='192.168.55.0' \
   -e BULB_IPS='192.168.55.10,192.168.55.11' \
