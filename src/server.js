@@ -3,6 +3,7 @@
 const net = require('net');
 const server = net.createServer();
 
+const scenes = require('./scenes.js');
 const LifxClientKlass = require('node-lifx').Client;
 const lifxClient = new LifxClientKlass();
 
@@ -44,10 +45,17 @@ const onConnData = function(data, remoteAddress, conn) {
   var activeLights = lifxClient.lights();
   console.log('current active lights: %j', activeLights);
 
-  switch(data){
+  data = data.split(',');
+
+  switch(data[0]){
     case 'on':
     case 'off':
       activeLights.map( (light, idx) => light[data](2000) );
+    break;
+    case 'scene':
+      activeLights.map( (light, idx) => {
+        light.color(...scenes[data[1]]);
+      });
     break;
     default:
       console.error('Unknown command "' + data + '"');
