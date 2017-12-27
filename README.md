@@ -29,7 +29,8 @@ docker run -d --net=host --name lifx-api-endpoint \
   -e BULB_IPS='192.168.55.10,192.168.55.11' \
     snipzwolf/lifx-api-endpoint;
 
-# Send a command
+# Sending commands
 
-docker exec -it lifx-api-endpoint /bin/bash /app/send_cmd "off";
+docker exec -it lifx-api-endpoint /bin/bash /app/send_cmd off;
+docker exec -it lifx-api-endpoint /bin/bash /app/send_cmd scene,bright;
 ```
