@@ -10,7 +10,8 @@ RUN apt-get -qq update && \
     rm -rf /var/lib/apt/lists/*
 
 ENV LISTEN_HOST="127.0.0.1" \
-    LIFX_DEBUG="false"
+    LIFX_DEBUG="false" \
+    LIFX_CLIENT_PORT="56700"
 
 WORKDIR /app
 RUN npm init -y && npm install node-lifx

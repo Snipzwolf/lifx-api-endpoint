@@ -9,8 +9,14 @@ const lifxClient = new LifxClientKlass();
 
 var lifxClientSettings = {
   startDiscovery: true,
-  lights: process.env.BULB_IPS.split(',')
+  port: parseInt(process.env.LIFX_CLIENT_PORT)
 };
+
+if(typeof process.env.BULB_IPS !== 'undefined'){
+  lifxClientSettings['lights'] = process.env.BULB_IPS.split(',');
+}else{
+  throw new Exception("No Lifx IPs Specified");
+}
 
 if(typeof process.env.LIFX_DEBUG !== 'undefined'){
   lifxClientSettings['debug'] = (process.env.LIFX_DEBUG.trim().toLowerCase() == 'true');
@@ -46,19 +52,26 @@ const onConnData = function(data, remoteAddress, conn) {
   console.log('connection data from %s: %j', remoteAddress, data);
 
   var activeLights = lifxClient.lights();
-  console.log('current active lights: %j', activeLights);
+  console.log('current active lights:');
+  activeLights.length === 0 ? console.log('None') : activeLights.map((light, idx) => console.log( light.address ));
 
   data = data.split(',');
+
+  console.log('data is: %j', data);
+
+  var execOnLights = activeLights.filter((light, idx) =>  data.length < 3 || light.address === data[2]);
+  console.log('Executing on lights:');
+  execOnLights.length === 0 ? console.log('None') : execOnLights.map((light, idx) => console.log( light.address ));
 
   switch(data[0]){
     case 'on':
     case 'off':
-      activeLights.map( (light, idx) => light[data](2000) );
+      execOnLights.map( (light, idx) => light[data[0]](2000, (error) => {
+        if(error !== null)console.log(error);
+      }));
     break;
     case 'scene':
-      activeLights.map( (light, idx) => {
-        light.color(...scenes[data[1]]);
-      });
+      execOnLights.map( (light, idx) => light.color(...scenes[data[1]]) );
     break;
     default:
       console.error('Unknown command "' + data + '"');

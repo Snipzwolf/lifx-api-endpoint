@@ -9,5 +9,8 @@ callback	function	null	function(error) {} Called after the command has reached t
 */
 module.exports = {
   'night': [118, 10, 19, 2500, 2000],
-  'bright': [118, 0, 100, 9000, 2000]
+  'bright': [118, 0, 100, 9000, 2000],
+  'red': [360, 74, 100, 9000, 2000],
+  'green': [119, 74, 100, 9000, 2000],
+  'blue': [160, 74, 100, 9000, 2000]
 };
