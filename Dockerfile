@@ -1,13 +1,9 @@
-FROM node:7.7.3
+FROM arm32v7/node:12.14-alpine
 
 ENV DEBCONF_NONINTERACTIVE_SEEN="true" \
     DEBIAN_FRONTEND="noninteractive"
 
-RUN apt-get -qq update && \
-    apt-get -qqy install netcat && \
-    apt-get -qqy autoremove && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --purge --no-cache -qf netcat;
 
 ENV LISTEN_HOST="127.0.0.1" \
     LIFX_DEBUG="false" \
